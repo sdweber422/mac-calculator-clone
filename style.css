@@ -1,0 +1,82 @@
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto Regular'),
+       local('Roboto-Regular'),
+       url(https://fonts.googleapis.com/css?family=Roboto)
+}
+
+body {
+  font-family: 'Roboto';
+  overflow: scroll;
+}
+
+.main {
+  background-color: grey;
+  color: white;
+  position: relative;
+  font-size: 3.0em;
+  font-weight: lighter;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  width: 227px;
+  height: 77px;;
+  margin-left: -5px;
+}
+
+.display {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-right: 3px;
+}
+
+.button {
+  background-color: lightgrey;
+  position: relative;
+  display: inline-block;
+  font-size: large;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  width: 56px;
+  height: 46px;
+  text-align: center;
+  margin-left: -5px
+}
+
+.empty {
+  border-left-width: 0px;
+  width: 57px;
+}
+
+.symbol {
+  position: absolute;
+  margin-top: 12px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0
+}
+
+.operator {
+  background-color: orange;
+  color: white;
+}
+
+.calculator {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 300px;
+  width: 250px;
+}
+.row {
+  display: block;
+  margin-bottom: -5px;
+}
