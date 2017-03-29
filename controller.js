@@ -6,27 +6,43 @@ window.onload = document
 function clickHandler(event) {
   var displayScreen = document.getElementById( 'calculator-output' )
   var keystroke = event.target.dataset.value
-  console.log( 'keystroke', keystroke )
   var displayLength = calc.getDisplayLength()
 
   sendInputToCalculator( keystroke )
+  // checkForOperation( keystroke )
   checkForAllClear( keystroke, displayScreen )
+  checkForEqualSign( keystroke, displayLength, displayScreen )
   adjustDisplayFont( displayLength, displayScreen )
-  checkForOverFlowingDisplay( displayLength, displayScreen )
+  checkForOverFlowingDisplay( keystroke, displayLength, displayScreen )
 }
 
 function defaultFontSize( displayScreen ) {
   displayScreen.style.fontSize = '50px'
 }
 
-function checkForAllClear( keypress, displayScreen ) {
-  if ( keypress === 'AC' ) {
-    defaultFontSize( displayScreen )
+function checkForEqualSign( keypress, displayScreen ) {
+  if ( keypress === '=' ) {
+
   }
 }
 
-function checkForOverFlowingDisplay( displayLength, displayScreen ) {
-  if ( displayLength < 25 ) {
+function checkForOperation( keypress ) {
+  if ( [ 'X', '/', '+', '-' ].includes( keypress ) ) {
+    return true
+  }
+  return false
+}
+
+function checkForAllClear( keypress, displayScreen ) {
+  if ( keypress === 'AC' ) {
+    calc.resetDisplay()
+    defaultFontSize( displayScreen )
+    checkForOverFlowingDisplay( 0, displayScreen )
+  }
+}
+
+function checkForOverFlowingDisplay( keypress, displayLength, displayScreen ) {
+  if ( displayLength < 25 && !checkForOperation( keypress ) ) {
     displayScreen.innerHTML = calc.getDisplay()
   }
 }
