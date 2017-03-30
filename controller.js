@@ -9,11 +9,23 @@ function clickHandler(event) {
   var displayLength = calc.getDisplayLength()
 
   sendInputToCalculator( keystroke )
-  // checkForOperation( keystroke )
   checkForAllClear( keystroke, displayScreen )
   checkForEqualSign( keystroke, displayLength, displayScreen )
-  adjustDisplayFont( displayLength, displayScreen )
-  checkForOverFlowingDisplay( keystroke, displayLength, displayScreen )
+  if ( !checkForOperation( keystroke ) ) {
+    adjustDisplayFont( displayLength, displayScreen )
+    checkForOverFlowingDisplay( keystroke, displayLength, displayScreen )
+  }
+}
+
+function adjustDisplayFont( displayLength, displayScreen ) {
+  if ( displayLength > 7 ) {
+    var fontReducer = window.getComputedStyle( displayScreen ).getPropertyValue( 'font-size' ).slice(0,2)
+    fontReducer = parseInt(fontReducer) - (fontReducer/10)
+    if ( fontReducer < 16 ) {
+      fontReducer = 16
+    }
+    displayScreen.style.fontSize = `${fontReducer}px`
+  }
 }
 
 function defaultFontSize( displayScreen ) {
@@ -27,7 +39,7 @@ function checkForEqualSign( keypress, displayScreen ) {
 }
 
 function checkForOperation( keypress ) {
-  if ( [ 'X', '/', '+', '-' ].includes( keypress ) ) {
+  if ( [ 'X', '/', '+', '-' ].includes( keypress ) && !shouldDisplay() ) {
     return true
   }
   return false
@@ -51,16 +63,10 @@ function sendInputToCalculator( keypress ) {
   calc.keypress( keypress )
 }
 
-function adjustDisplayFont( displayLength, displayScreen ) {
-  if ( displayLength > 7 ) {
-    var fontReducer = window.getComputedStyle( displayScreen ).getPropertyValue( 'font-size' ).slice(0,2)
-    fontReducer = parseInt(fontReducer) - (fontReducer/10)
-    if ( fontReducer < 16 ) {
-      fontReducer = 16
-    }
-    displayScreen.style.fontSize = `${fontReducer}px`
-  }
+function shouldDisplay() {
+  return calc.isOperatorListFull()
 }
+
 
 // Event listener
 document.getElementById( 'calculator' ).addEventListener( 'click', clickHandler.bind(this))
