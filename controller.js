@@ -3,24 +3,49 @@ window.onload = document
   .getElementById( 'calculator-output' )
   .innerHTML = calc.getDisplay()
 
-function clickHandler(event) {
+/********* Event listeners **********/
+
+document.getElementById( 'calculator' ).addEventListener( 'click', clickHandler.bind( this ) )
+document.addEventListener( 'keypress', keypressHandler.bind( this ) )
+
+/********* Event Listener functions *********/
+
+function clickHandler( event ) {
   var displayScreen = document.getElementById( 'calculator-output' )
-  var keystroke = event.target.dataset.value
+  var buttonPush = event.target.dataset.value
   var displayLength = calc.getDisplayLength()
 
-  sendInputToCalculator( keystroke )
-  checkForAllClear( keystroke, displayScreen )
-  checkForEqualSign( keystroke, displayLength, displayScreen )
-  if ( !checkForOperation( keystroke ) ) {
-    adjustDisplayFont( displayLength, displayScreen )
-    checkForOverFlowingDisplay( keystroke, displayLength, displayScreen )
+  sendInputToCalculator( buttonPush )
+  if ( !checkForOperation( buttonPush ) ) {
+    displayOnScreen( buttonPush, displayLength, displayScreen )
   }
 }
+
+function keypressHandler( event ) {
+  var displayScreen = document.getElementById( 'calculator-output' )
+  var keystroke = event.key
+  var displayLength = calc.getDisplayLength()
+  var validKeystrokes = [
+    '0', '1', '2', '3', '4',
+    '5', '6', '7', '8', '9' ,
+     '.', 'X', '/', '+', '-',
+     '=', '*'
+    ]
+
+  if( validKeystrokes.includes( keystroke ) ) {
+    sendInputToCalculator( keystroke )
+    if ( !checkForOperation( keystroke ) ) {
+      displayOnScreen( keystroke, displayLength, displayScreen )
+    }
+  }
+}
+
+/********* Helper functions **********/
 
 function adjustDisplayFont( displayLength, displayScreen ) {
   if ( displayLength > 7 ) {
     var fontReducer = window.getComputedStyle( displayScreen ).getPropertyValue( 'font-size' ).slice(0,2)
-    fontReducer = parseInt(fontReducer) - (fontReducer/10)
+    fontReducer = parseInt(fontReducer) - (parseInt(fontReducer)/10)
     if ( fontReducer < 16 ) {
       fontReducer = 16
     }
@@ -28,29 +53,11 @@ function adjustDisplayFont( displayLength, displayScreen ) {
   }
 }
 
-function defaultFontSize( displayScreen ) {
-  displayScreen.style.fontSize = '50px'
-}
-
-function checkForEqualSign( keypress, displayScreen ) {
-  if ( keypress === '=' ) {
-
-  }
-}
-
 function checkForOperation( keypress ) {
-  if ( [ 'X', '/', '+', '-' ].includes( keypress ) && !shouldDisplay() ) {
+  if ( [ 'X', '/', '+', '-', '*' ].includes( keypress ) && !shouldDisplay() ) {
     return true
   }
   return false
-}
-
-function checkForAllClear( keypress, displayScreen ) {
-  if ( keypress === 'AC' ) {
-    calc.resetDisplay()
-    defaultFontSize( displayScreen )
-    checkForOverFlowingDisplay( 0, displayScreen )
-  }
 }
 
 function checkForOverFlowingDisplay( keypress, displayLength, displayScreen ) {
@@ -59,14 +66,15 @@ function checkForOverFlowingDisplay( keypress, displayLength, displayScreen ) {
   }
 }
 
+function displayOnScreen ( keypress, displayLength, displayScreen ) {
+  adjustDisplayFont( displayLength, displayScreen )
+  checkForOverFlowingDisplay( keypress, displayLength, displayScreen )
+}
+
 function sendInputToCalculator( keypress ) {
   calc.keypress( keypress )
 }
 
 function shouldDisplay() {
-  return calc.isOperatorListFull()
+  return calc.displayResults()
 }
-
-
-// Event listener
-document.getElementById( 'calculator' ).addEventListener( 'click', clickHandler.bind(this))

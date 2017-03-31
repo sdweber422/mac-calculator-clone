@@ -3,9 +3,10 @@ var Calculator = function() {
   this.operators = []
   this.operands = []
   this.resetDisplayFlag = true
+  this.sendToDisplayFlag = false
   this.poppedOperator = null
   this.poppedOperand = null
-  this.resultArray = []
+  this.lastKeypress = null
 }
 
 Calculator.prototype = {
@@ -16,8 +17,10 @@ Calculator.prototype = {
       this.operators = []
       this.operands = []
       this.resetDisplayFlag = true
+      this.sendToDisplayFlag = false
       this.poppedOperator = null
       this.poppedOperand = null
+      this.lastKeypress = null
     }
   },
 
@@ -34,24 +37,17 @@ Calculator.prototype = {
       )
       this.operands.push( this.display )
       this.resetDisplayFlag = true
-      console.log( 'this.display', this.display )
+      this.sendToDisplayFlag = true
     }
   },
 
-  numberHandler: function( value ) {
-    if ( this.resetDisplayFlag ) {
-      this.display = value
-      this.resetDisplayFlag = false
-    }
-    else {
-      this.display += value
-    }
+  displayResults: function() {
+    return this.sendToDisplayFlag
   },
 
-  operatorHandler: function( value ) {
+  ifEquals: function( value ) {
     if ( value === '=' ) {
       if ( this.resetDisplayFlag === true ) {
-        console.log( 'Here' )
         this.operators.push( this.poppedOperator )
         this.operands.push( this.poppedOperand )
         this.completeOperation()
@@ -64,9 +60,13 @@ Calculator.prototype = {
       }
       return true
     }
-    if ( [ 'X', '/', '+', '-' ].includes( value ) ) {
+    return false
+  },
+
+  ifOperator: function( value ) {
+    if ( [ 'X', '/', '+', '-', '*' ].includes( value ) ) {
       if ( this.operators.length ) {
-        var multiplicationDivisionSigns = [ 'X', '/' ]
+        var multiplicationDivisionSigns = [ 'X', '/', '*' ]
         var additionSubtractionSigns = [ '+', '-' ]
         var lastOperator = this.operators[ this.operators.length - 1 ]
         var lastOperand = this.operands[ this.operands.length - 1 ]
@@ -90,9 +90,6 @@ Calculator.prototype = {
           this.resetDisplayFlag = true
         }
         else {
-          console.log( 'We made it' )
-          console.log( 'this.operators', this.operators )
-          console.log( 'this.operands', this.operands )
           this.operands.push( this.display )
           this.completeOperation()
           this.operators.push( value )
@@ -110,21 +107,6 @@ Calculator.prototype = {
     return false
   },
 
-  performOperation: function() {
-    var secondOperand = this.operands.pop()
-    var firstOperand = this.operands.pop()
-    this.poppedOperand = secondOperand
-    this.poppedOperator = this.operators.pop()
-    this.display = this.operatorLookUpTable(
-      this.poppedOperator,
-      firstOperand,
-      secondOperand
-    )
-    this.operands.push( this.display )
-    this.resetDisplayFlag = true
-    console.log( 'this.display', this.display )
-  },
-
   getDisplay: function() {
     return this.display
   },
@@ -139,29 +121,60 @@ Calculator.prototype = {
     ) {
       this.numberHandler( value )
     }
-    this.resultArray.push( value )
     this.checkForAllClear( value )
-    console.log( 'this.operators', this.operators )
-    console.log( 'this.operands', this.operands )
-    console.log( 'this.resultArray', this.resultArray )
+    this.lastKeypress = value
   },
 
-  isOperatorListFull: function() {
-    return this.resetDisplayFlag
+  numberHandler: function( value ) {
+    if ( this.resetDisplayFlag ) {
+      this.display = value
+      this.resetDisplayFlag = false
+    }
+    else {
+      this.display += value
+    }
   },
 
   operatorLookUpTable: function( operator, value1, value2 ) {
-    console.log( 'value1', value1 )
-    console.log( 'value2', value2 )
     let operatorLookUp = {
       ['X']       : parseFloat( value1 ) * parseFloat( value2 ),
       ['/']       : parseFloat( value1 ) / parseFloat( value2 ),
       ['+']       : parseFloat( value1 ) + parseFloat( value2 ),
       ['-']       : parseFloat( value1 ) - parseFloat( value2 ),
+      ['*']       : parseFloat( value1 ) * parseFloat( value2 ),
       [null]      : 0,
       [undefined] : 0
     }
-    return operatorLookUp[ operator ]
+    return operatorLookUp[ operator ].toPrecision(5)
+  },
+
+  operatorHandler: function( value ) {
+    this.sendToDisplayFlag = false
+    if ( this.ifEquals( value ) ) {
+      return true
+    }
+    if ( this.lastKeypress === value ) {
+      return true
+    }
+    if ( this.ifOperator( value ) ) {
+      return true
+    }
+    return false
+  },
+
+  performOperation: function() {
+    var secondOperand = this.operands.pop()
+    var firstOperand = this.operands.pop()
+    this.poppedOperand = secondOperand
+    this.poppedOperator = this.operators.pop()
+    this.display = this.operatorLookUpTable(
+      this.poppedOperator,
+      firstOperand,
+      secondOperand
+    )
+    this.operands.push( this.display )
+    this.resetDisplayFlag = true
+    this.sendToDisplayFlag = true
   },
 
   resetDisplay: function() {
