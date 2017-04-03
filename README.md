@@ -8,9 +8,11 @@ This this the base repo for the [Mac Calculator Clone](http://jsdev.learnersguil
 
 ## Installation and Setup
 
-```git clone https://github.com/sdweber422/mac-calculator-clone
 ```
-```open index.html
+git clone https://github.com/sdweber422/mac-calculator-clone
+```
+```
+open index.html
 ```
 
 ## Usage and Examples
@@ -18,6 +20,7 @@ This this the base repo for the [Mac Calculator Clone](http://jsdev.learnersguil
 Calculator mimics order of operations of a Mac Calculator
 
 5 X 3 + 4 = 19
+
 5 + 3 X 4 = 17
 
 # Mac Calculator Clone Specs
