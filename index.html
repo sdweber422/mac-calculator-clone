@@ -1,81 +1,81 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="./style.css" />
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="./style.css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
   <title>Calculator</title>
-  <div class="calculator">
+  <div id="calculator">
     <div class="calculator-row">
       <div class="calculator-display">
-        <div class="calculator-output">0</div>
+        <div id="calculator-output"></div>
       </div>
     </div>
     <div class="calculator-row">
-      <div class="calculator-button">
-        <div class="calculator-value">AC</div>
+      <div class="calculator-button" data-value="AC">
+        <div class="calculator-value" data-value="AC">AC</div>
       </div>
-      <div class="calculator-button">
-        <div class="calculator-value">+/-</div>
+      <div class="calculator-button" data-value="+/-">
+        <div class="calculator-value" data-value="+/-">+/-</div>
       </div>
-      <div class="calculator-button">
-        <div class="calculator-value">%</div>
+      <div class="calculator-button" data-value="%">
+        <div class="calculator-value" data-value="%">%</div>
       </div>
-      <div class="calculator-button operator">
-        <div class="calculator-value">/</div>
-      </div>
-    </div>
-    <div class="calculator-row">
-      <div class="calculator-button">
-        <div class="calculator-value">7</div>
-      </div>
-      <div class="calculator-button">
-        <div class="calculator-value">8</div>
-      </div>
-      <div class="calculator-button">
-        <div class="calculator-value">9</div>
-      </div>
-      <div class="calculator-button operator">
-        <div class="calculator-value">X</div>
+      <div class="calculator-button operator" data-value="/">
+        <div class="calculator-value" data-value="/">/</div>
       </div>
     </div>
     <div class="calculator-row">
-      <div class="calculator-button">
-        <div class="calculator-value">4</div>
+      <div class="calculator-button" data-value="7">
+        <div class="calculator-value" data-value="7">7</div>
       </div>
-      <div class="calculator-button">
-        <div class="calculator-value">5</div>
+      <div class="calculator-button" data-value="8">
+        <div class="calculator-value" data-value="8">8</div>
       </div>
-      <div class="calculator-button">
-        <div class="calculator-value">6</div>
+      <div class="calculator-button" data-value="9">
+        <div class="calculator-value" data-value="9">9</div>
       </div>
-      <div class="calculator-button operator">
-        <div class="calculator-value">-</div>
-      </div>
-    </div>
-    <div class="calculator-row">
-      <div class="calculator-button">
-        <div class="calculator-value">1</div>
-      </div>
-      <div class="calculator-button">
-        <div class="calculator-value">2</div>
-      </div>
-      <div class="calculator-button">
-        <div class="calculator-value">3</div>
-      </div>
-      <div class="calculator-button operator">
-        <div class="calculator-value">+</div>
+      <div class="calculator-button operator" data-value="X">
+        <div class="calculator-value" data-value="X">X</div>
       </div>
     </div>
     <div class="calculator-row">
-      <div class="calculator-button">
-        <div class="calculator-value">0</div>
+      <div class="calculator-button" data-value="4">
+        <div class="calculator-value" data-value="4">4</div>
       </div>
-      <div class="calculator-button empty">
+      <div class="calculator-button" data-value="5">
+        <div class="calculator-value" data-value="5">5</div>
       </div>
-      <div class="calculator-button">
-        <div class="calculator-value">.</div>
+      <div class="calculator-button" data-value="6">
+        <div class="calculator-value" data-value="6">6</div>
       </div>
-      <div class="calculator-button operator">
-        <div class="calculator-value">=</div>
+      <div class="calculator-button operator" data-value="-">
+        <div class="calculator-value" data-value="-">-</div>
+      </div>
+    </div>
+    <div class="calculator-row">
+      <div class="calculator-button" data-value="1">
+        <div class="calculator-value" data-value="1">1</div>
+      </div>
+      <div class="calculator-button" data-value="2">
+        <div class="calculator-value" data-value="2">2</div>
+      </div>
+      <div class="calculator-button" data-value="3">
+        <div class="calculator-value" data-value="3">3</div>
+      </div>
+      <div class="calculator-button operator" data-value="+">
+        <div class="calculator-value" data-value="+">+</div>
+      </div>
+    </div>
+    <div class="calculator-row">
+      <div class="calculator-button zero" data-value="0">
+        <div class="calculator-value" data-value="0">0</div>
+      </div>
+      <div class="calculator-button" data-value=".">
+        <div class="calculator-value" data-value=".">.</div>
+      </div>
+      <div class="calculator-button operator" data-value="=">
+        <div class="calculator-value" data-value="=">=</div>
       </div>
     </div>
   </div>
+  <script src="./calculator.js"></script>
+  <script src="./controller.js"></script>
