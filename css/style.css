@@ -4,6 +4,8 @@ body {
 
 .calculator {
   bottom: 0;
+  color: white;
+  font-size: 1.2em;
   height: 330px;
   left: 0;
   margin: auto;
@@ -15,6 +17,7 @@ body {
 
 .calculator-button {
   border: 1px solid black;
+  color: black;
   display: inline-block;
   float: left;
   height: 48px;
@@ -22,7 +25,15 @@ body {
 }
 
 .calculator-click {
+  opacity: 1;
   z-index: 100;
+}
+
+.calculator-button:hover {
+  background-color: black;
+  color: white;
+  opacity: .7;
+  transition: 100ms;
 }
 
 .calculator-container {
@@ -31,9 +42,18 @@ body {
   line-height: 48px;
 }
 
+.calculator-display {
+  bottom: 0;
+  margin-right: 2px;
+  position: absolute;
+  right: 0;
+}
+
 .calculator-display-container {
   background-color: black;
+  font-size: 3em;
   height: 80px;
+  position: relative;
   width: 242px;
 }
 
