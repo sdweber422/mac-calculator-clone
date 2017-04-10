@@ -12,4 +12,9 @@ _Fill this out_
 
 ## Usage and Examples
 
-_...and this_
+```
+AC        = 0
+9 %       = 0.09
+2 * 3     = 6
+2 + 3 * 8 = 26 //Order of operations is respected
+```
