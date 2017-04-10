@@ -1,0 +1,49 @@
+body {
+  overflow: auto;
+}
+
+.calculator {
+  bottom: 0;
+  height: 330px;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 240px;
+}
+
+.calculator-button {
+  border: 1px solid black;
+  display: inline-block;
+  float: left;
+  height: 48px;
+  width: 58px;
+}
+
+.calculator-click {
+  z-index: 100;
+}
+
+.calculator-container {
+  background-color: gray;
+  text-align: center;
+  line-height: 48px;
+}
+
+.calculator-display-container {
+  background-color: black;
+  height: 80px;
+  width: 242px;
+}
+
+.calculator-row {
+  height: 48px;
+  width: 240px;
+}
+
+.zero {
+  background-color: gray;
+  height: 48px;
+  width: 118px;
+}

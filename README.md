@@ -8,7 +8,7 @@ This this the base repo for the [Mac Calculator Clone](http://jsdev.learnersguil
 
 ## Installation and Setup
 
-_Fill this out_
+This is the second attempt at a mac calculator clone, and all code for this 2nd attempt will be on branches beginning with `2nd-attempt`
 
 ## Usage and Examples
 
