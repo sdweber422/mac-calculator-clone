@@ -8,8 +8,13 @@ This this the base repo for the [Mac Calculator Clone](http://jsdev.learnersguil
 
 ## Installation and Setup
 
-_Fill this out_
+This is the second attempt at a mac calculator clone, and all code for this 2nd attempt will be on branches beginning with `2nd-attempt`
 
 ## Usage and Examples
 
-_...and this_
+```
+AC        = 0
+9 %       = 0.09
+2 * 3     = 6
+2 + 3 * 8 = 26 //Order of operations is respected
+```
