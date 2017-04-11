@@ -40,6 +40,7 @@ body {
 
 .calculator-display {
   bottom: 0;
+  font-size: 3em;
   margin-right: 2px;
   position: absolute;
   right: 0;
@@ -47,7 +48,6 @@ body {
 
 .calculator-display-container {
   background-color: black;
-  font-size: 3em;
   height: 80px;
   position: relative;
   width: 240px;
