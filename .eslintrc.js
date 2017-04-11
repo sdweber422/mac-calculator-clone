@@ -10,7 +10,8 @@ module.exports = {
     "rules": {
       "indent": [
           "error",
-          2
+          2,
+          {"SwitchCase": 1}
       ],
       "semi" : [
         "error",
@@ -18,12 +19,7 @@ module.exports = {
       ],
       "space-in-parens": [
         "error",
-        "always",
-        {
-          "exceptions": [
-            "[]", "{}", "()"
-          ]
-        }
+        "always"
       ],
       "linebreak-style": [
         "error",
