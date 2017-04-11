@@ -9,8 +9,10 @@ function calculatorHandler ( event ) {
   var value = ( !event.key ) ? event.target.value : parsedKey( event.key )
 
   Calc.acceptInput( value )
-  displayResizer( displayElement )
-  formatDisplay( displayElement )
+  if ( Calc.shouldDisplay() ) {
+    displayResizer( displayElement )
+    formatDisplay( displayElement )
+  }
 }
 
 function formatDisplay ( display ) {
