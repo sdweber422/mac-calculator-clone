@@ -10,11 +10,14 @@ function calculatorHandler ( event ) {
 
   Calc.acceptInput( value )
   displayResizer( displayElement )
-  checkForMaxDisplay( displayElement )
+  formatDisplay( displayElement )
 }
 
-function checkForMaxDisplay ( display ) {
+function formatDisplay ( display ) {
   if ( Calc.getDisplayLength() < 24 ) {
+    if ( Calc.getDisplayLength() === 1 ) {
+      displayResizer( display )
+    }
     display.innerHTML = Calc.getDisplay()
   }
 }
@@ -29,6 +32,8 @@ function displayResizer ( display ) {
     if ( alteredFontSize > 20 ) {
       display.style.fontSize = `${alteredFontSize}px`
     }
+  } else {
+    display.style.fontSize = '56px'
   }
 }
 
