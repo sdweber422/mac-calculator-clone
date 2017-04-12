@@ -37,6 +37,10 @@ body {
   width: 60px;
 }
 
+.calculator-button:focus {
+  outline: none;
+}
+
 .calculator-button:hover {
   background-color: black !important;
   color: white !important;
