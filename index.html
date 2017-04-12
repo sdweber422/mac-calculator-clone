@@ -2,8 +2,7 @@
 <head>
   <meta-charset="utf-8">
   <title>Mac Calculator Clone</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div class="calculator">
@@ -14,16 +13,16 @@
     </div>
     <div class="calculator-keypad">
       <div class="calculator-row">
-        <button class="calculator-button calculator-container">
+        <button class="calculator-button calculator-container calculator-top-row">
           AC
         </button>
-        <button class="calculator-button calculator-container">
+        <button class="calculator-button calculator-container calculator-top-row">
           +/-
         </button>
-        <button class="calculator-button calculator-container">
+        <button class="calculator-button calculator-container calculator-top-row">
           %
         </button>
-        <button class="calculator-button calculator-container">
+        <button class="calculator-button calculator-container calculator-operation">
           /
         </button>
       </div>
@@ -37,7 +36,7 @@
         <button class="calculator-button calculator-container">
           9
         </button>
-        <button class="calculator-button calculator-container">
+        <button class="calculator-button calculator-container calculator-operation">
           X
         </button>
       </div>
@@ -51,7 +50,7 @@
         <button class="calculator-button calculator-container">
           6
         </button>
-        <button class="calculator-button calculator-container">
+        <button class="calculator-button calculator-container calculator-operation">
           -
         </button>
       </div>
@@ -65,20 +64,22 @@
         <button class="calculator-button calculator-container">
           3
         </button>
-        <button class="calculator-button calculator-container">
+        <button class="calculator-button calculator-container calculator-operation">
           +
         </button>
       </div>
       <div class="calculator-row">
-        <button class="calculator-button calculator-container calculator-zero">
-          0
-        </button>
-        <button class="calculator-button calculator-container">
-          .
-        </button>
-        <button class="calculator-button calculator-container">
-          =
-        </button>
+        <div class="calculator-row-hide-overflow">
+          <button class="calculator-button calculator-container calculator-zero">
+            0
+          </button>
+          <button class="calculator-button calculator-container">
+            .
+          </button>
+          <button class="calculator-button calculator-container calculator-operation">
+            =
+          </button>
+        </div>
       </div>
     </div>
   </div>
