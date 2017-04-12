@@ -46,7 +46,6 @@ Calculator.prototype = {
     this.operands = []
     this.operations = []
     this.display = '0'
-    this.displayFlag = true
     this.value = '0'
     return this.displayScreen()
   },
@@ -65,16 +64,37 @@ Calculator.prototype = {
     return this.displayScreen()
   },
 
+  // Computation Functions
+
+  add: function ( operandOne, operandTwo ) {
+    return operandOne + operandTwo
+  },
+
+  divide: function ( operandOne, operandTwo ) {
+    return operandOne / operandTwo
+  },
+
+  multiply: function ( operandOne, operandTwo ) {
+    return operandOne * operandTwo
+  },
+
+  subtract: function ( operandOne, operandTwo ) {
+    return operandOne - operandTwo
+  },
+
+  // Completion functions
+
   completeOperations: function () {
     while ( this.operations.length ) {
+      this.poppedOperand = this.operands.pop()
       this.display = this.lookUpFunctions(
         this.operations.pop(),
         this.display,
-        this.operands.pop()
+        this.poppedOperand
       )
     }
     this.value = ''
-    this.displayFlag = true
+    console.log( 'equals' )
     return this.displayScreen()
   },
 
@@ -83,20 +103,17 @@ Calculator.prototype = {
   handleInput: function () {
     if ( this.isNumber() ) {
       this.displayScreen()
-      return
-    }
-    if ( this.isOperation() ) {
+    } else if ( this.isOperation() ) {
       this.handleOperations()
-      return
+    } else {
+      this.handleSpecialOperations()
     }
-    return this.handleSpecialOperations()
   },
 
   handleOperations: function () {
     if ( this.isEqualSign() ) {
       return this.completeOperations()
-    }
-    if ( !this.queuedOperations() ) {
+    } else if ( !this.queuedOperations() ) {
       this.operations.push( this.value )
       this.operands.push( this.display )
       this.displayFlag = false
@@ -118,7 +135,7 @@ Calculator.prototype = {
       return this.changeSign()
     }
     if ( this.checkForPercentage() ) {
-      this.computePercentage()
+      return this.computePercentage()
     }
   },
 
@@ -171,10 +188,10 @@ Calculator.prototype = {
     var secondValue = parseFloat( operandTwo )
     /* eslint-disable key-spacing */
     var functions = {
-      'X'        : firstValue * secondValue,
-      '/'        : firstValue / secondValue,
-      '+'        : firstValue + secondValue,
-      '-'        : firstValue - secondValue,
+      'X'        : this.multiply( firstValue, secondValue ),
+      '/'        : this.divide( firstValue, secondValue ),
+      '+'        : this.add( firstValue, secondValue ),
+      '-'        : this.subtract( firstValue, secondValue ),
       'null'     : '0',
       'undefined': '0'
     }
