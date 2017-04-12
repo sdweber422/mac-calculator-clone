@@ -34,7 +34,7 @@ function calculatorHandler ( event ) {
 }
 
 function formatDisplay ( display ) {
-  if ( Calc.getDisplayLength() < 24 ) {
+  if ( Calc.getDisplayLength() < 22 ) {
     if ( Calc.getDisplayLength() === 1 ) {
       displayResizer( display )
     }
@@ -44,14 +44,25 @@ function formatDisplay ( display ) {
 
 function displayResizer ( display ) {
   var displayLength = Calc.getDisplayLength()
+
   if ( displayLength > 8 ) {
-    var fontSize = window.getComputedStyle( display, null )
-      .getPropertyValue( 'font-size' )
-    fontSize = fontSize.slice( 0, fontSize.length - 2 )
-    var alteredFontSize = fontSize - ( fontSize / 10 )
-    if ( alteredFontSize > 20 ) {
-      display.style.fontSize = `${alteredFontSize}px`
+    var alteredFontSize
+    switch ( displayLength ) {
+      case 9 :
+      case 10: alteredFontSize = 46
+        break
+      case 11:
+      case 12: alteredFontSize = 38
+        break
+      case 13:
+      case 14: alteredFontSize = 30
+        break
+      case 15:
+      case 16: alteredFontSize = 22
+        break
+      default: alteredFontSize = 20
     }
+    display.style.fontSize = `${alteredFontSize}px`
   } else {
     display.style.fontSize = '56px'
   }
