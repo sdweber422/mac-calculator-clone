@@ -13,7 +13,6 @@ function calculatorHandler ( event ) {
   }
 
   var value = ( !event.key ) ? event.target.value : eventKey
-  console.log( 'value', value )
   var calculatorButton = document.querySelector( `[value='${eventKey}']` )
 
   if ( eventKey !== null && eventKey ) {
@@ -74,7 +73,6 @@ function displayResizer ( display ) {
 }
 
 function parsedKey ( value ) {
-  console.log( 'value.charCodeAt()', value.charCodeAt() )
   if ( value.charCodeAt() > 44 && value.charCodeAt() < 58 ) {
     return value
   } else {
