@@ -6,7 +6,25 @@ document.addEventListener( 'keypress', calculatorHandler.bind( this ) )
 
 function calculatorHandler ( event ) {
   var displayElement = document.querySelector( '.calculator-display' )
-  var value = ( !event.key ) ? event.target.value : parsedKey( event.key )
+  var eventKey
+
+  if ( event.key ) {
+    eventKey = parsedKey( event.key )
+  }
+
+  var value = ( !event.key ) ? event.target.value : eventKey
+  var calculatorButton = document.querySelector( `[value='${eventKey}']` )
+
+  if ( eventKey !== null && eventKey ) {
+    calculatorButton.style.backgroundColor = 'black'
+    calculatorButton.style.color = 'white'
+    calculatorButton.style.opacity = '.7'
+    setTimeout( function () {
+      calculatorButton.style.backgroundColor = 'gray'
+      calculatorButton.style.color = 'black'
+      calculatorButton.style.opacity = '1'
+    }, 200 )
+  }
 
   Calc.acceptInput( value )
   if ( Calc.shouldDisplay() ) {
