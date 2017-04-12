@@ -25,11 +25,15 @@ body {
   width: 60px;
 }
 
+.calculator-button:focus {
+  outline: none;
+}
+
 .calculator-button:hover {
-  background-color: black;
-  color: white;
-  opacity: .7;
-  transition: 100ms;
+  background-color: black !important;
+  color: white !important;
+  opacity: .7 !important;
+  transition: 100ms !important;
 }
 
 .calculator-container {
@@ -40,6 +44,7 @@ body {
 
 .calculator-display {
   bottom: 0;
+  font-size: 3em;
   margin-right: 2px;
   position: absolute;
   right: 0;
@@ -47,7 +52,6 @@ body {
 
 .calculator-display-container {
   background-color: black;
-  font-size: 3em;
   height: 80px;
   position: relative;
   width: 240px;
