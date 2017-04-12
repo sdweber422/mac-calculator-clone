@@ -1,4 +1,12 @@
+@font-face {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  src: url('https://fonts.googleapis.com/css?family=Roboto');
+}
+
 body {
+  font-family: 'Roboto', sans-serif;
   overflow: auto;
 }
 
@@ -16,12 +24,16 @@ body {
 }
 
 .calculator-button {
-  border: 1px solid black;
+  border: none;
+  border-left: 1px solid gray;
   color: black;
   display: inline-block;
   float: left;
-  font-size: 1em;
+  font-family: 'Roboto', sans-serif;
+  font-size: 22px;
+  font-weight: 350;
   height: 48px;
+  padding: 0;
   width: 60px;
 }
 
@@ -33,33 +45,63 @@ body {
 }
 
 .calculator-container {
-  background-color: gray;
-  text-align: center;
+  background-color: #e6e8ed;
   line-height: 48px;
+  text-align: center;
 }
 
 .calculator-display {
   bottom: 0;
-  margin-right: 2px;
+  font-size: 50px;
+  font-weight: 100;
+  margin-right: 8px;
   position: absolute;
   right: 0;
 }
 
 .calculator-display-container {
   background-color: black;
-  font-size: 3em;
+  border: 1px dotted black;
+  border-radius: 7px 7px 0 0;
   height: 80px;
+  opacity: .35;
   position: relative;
   width: 240px;
 }
 
+.calculator-operation {
+  background-color: darkorange;
+  color: white;
+  opacity: .85;
+}
+
 .calculator-row {
+  border-bottom: 1px solid gray;
+  border-right: 1px solid gray;
   height: 48px;
   width: 240px;
 }
 
+.calculator-row:last-child {
+  border-radius: 0 0 8px 8px;
+  position: absolute;
+  z-index: 100;
+}
+
+.calculator-row-hide-overflow {
+  border-radius: 0 0 8px 8px;
+  overflow: hidden;
+}
+
+.calculator-top-row {
+  background-color: gainsboro;
+  font-size: 18px;
+}
+
 .calculator-zero {
-  background-color: gray;
+  background-color: #e6e8ed;
   height: 48px;
+  padding-left: 25px;
+  text-align: left;
   width: 120px;
 }
