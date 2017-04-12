@@ -13,6 +13,7 @@ function calculatorHandler ( event ) {
   }
 
   var value = ( !event.key ) ? event.target.value : eventKey
+  console.log( 'value', value )
   var calculatorButton = document.querySelector( `[value='${eventKey}']` )
 
   if ( eventKey !== null && eventKey ) {
@@ -24,6 +25,10 @@ function calculatorHandler ( event ) {
       calculatorButton.style.color = 'black'
       calculatorButton.style.opacity = '1'
     }, 200 )
+  }
+
+  if ( event.target.value ) {
+    document.querySelector( '[value="="]' ).focus()
   }
 
   Calc.acceptInput( value )
@@ -69,11 +74,11 @@ function displayResizer ( display ) {
 }
 
 function parsedKey ( value ) {
+  console.log( 'value.charCodeAt()', value.charCodeAt() )
   if ( value.charCodeAt() > 44 && value.charCodeAt() < 58 ) {
     return value
   } else {
     switch ( value.charCodeAt() ) {
-      case 127: return 'AC'
       case 69 : return '='
       case 42 :
       case 88 :
