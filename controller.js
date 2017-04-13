@@ -20,20 +20,21 @@ function calculatorHandler ( event ) {
     calculatorButton.style.color = 'white'
     calculatorButton.style.opacity = '.7'
     setTimeout( function () {
-      calculatorButton.style.backgroundColor = 'gray'
+      calculatorButton.style.backgroundColor = '#e6e8ed'
       calculatorButton.style.color = 'black'
       calculatorButton.style.opacity = '1'
     }, 200 )
-  }
-
-  if ( event.target.value ) {
-    document.querySelector( '[value="="]' ).focus()
   }
 
   Calc.acceptInput( value )
   if ( Calc.shouldDisplay() ) {
     displayResizer( displayElement )
     formatDisplay( displayElement )
+  }
+
+  if ( event.target.value ) {
+    var eventTarget = document.querySelector( `[value='${event.target.value}']` )
+    eventTarget.blur()
   }
 }
 
