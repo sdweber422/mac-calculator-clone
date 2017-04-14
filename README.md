@@ -1,3 +1,5 @@
+# Team: #divergent-antechinus
+
 # Mac Calculator Clone
 
 Replicate the builtin Mac calculator as a web app.
