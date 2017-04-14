@@ -38,10 +38,10 @@ body {
 }
 
 .calculator-button:hover {
-  background-color: black;
-  color: white;
-  opacity: .7;
-  transition: 100ms;
+  background-color: black !important;
+  color: white !important;
+  opacity: .7 !important;
+  transition: 100ms !important;
 }
 
 .calculator-container {
