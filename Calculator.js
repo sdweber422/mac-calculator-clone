@@ -51,7 +51,7 @@ Calculator.prototype = {
   },
 
   changeSign: function () {
-    if ( !this.checkForSignInDisplay() ) {
+    if ( !helperFunctions.checkForSignInDisplay( this.display ) ) {
       this.display = '-' + this.display
     } else {
       this.display = this.display.slice( -( this.getDisplayLength() - 1 ) )
@@ -64,6 +64,64 @@ Calculator.prototype = {
     return this.displayScreen()
   },
 
+  // Completion functions
+
+  completeOperations: function () {
+    while ( this.operations.length ) {
+      this.poppedOperand = this.operands.pop()
+      this.display = helperFunctions.lookUpFunctions(
+        this.operations.pop(),
+        this.display,
+        this.poppedOperand
+      )
+    }
+    this.value = ''
+    return this.displayScreen()
+  },
+
+  // Functions that control calculator based on input
+
+  handleInput: function () {
+    if ( helperFunctions.isNumber( this.value ) ) {
+      this.displayScreen()
+    } else if ( helperFunctions.isOperation( this.value ) ) {
+      this.handleOperations()
+    } else {
+      this.handleSpecialOperations()
+    }
+  },
+
+  handleOperations: function () {
+    if ( helperFunctions.isEqualSign( this.value ) ) {
+      return this.completeOperations()
+    } else if ( !helperFunctions.queuedOperations( this.operations ) ) {
+      this.operations.push( this.value )
+      this.operands.push( this.display )
+      this.displayFlag = false
+      this.display = '0'
+    }
+  },
+
+  handleSpecialOperations: function () {
+    if ( helperFunctions.checkForAllClear( this.value ) ) {
+      return this.allClear()
+    }
+    if ( helperFunctions.checkForDecimal( this.value ) ) {
+      if ( !helperFunctions.displayContainsDecimal( this.display ) ) {
+        this.displayScreen()
+      }
+      return
+    }
+    if ( helperFunctions.checkForSign( this.value ) ) {
+      return this.changeSign()
+    }
+    if ( helperFunctions.checkForPercentage( this.value ) ) {
+      return this.computePercentage()
+    }
+  }
+}
+
+var helperFunctions = {
   // Computation Functions
 
   add: function ( operandOne, operandTwo ) {
@@ -82,103 +140,46 @@ Calculator.prototype = {
     return operandOne - operandTwo
   },
 
-  // Completion functions
-
-  completeOperations: function () {
-    while ( this.operations.length ) {
-      this.poppedOperand = this.operands.pop()
-      this.display = this.lookUpFunctions(
-        this.operations.pop(),
-        this.display,
-        this.poppedOperand
-      )
-    }
-    this.value = ''
-    console.log( 'equals' )
-    return this.displayScreen()
-  },
-
-  // Functions that control calculator based on input
-
-  handleInput: function () {
-    if ( this.isNumber() ) {
-      this.displayScreen()
-    } else if ( this.isOperation() ) {
-      this.handleOperations()
-    } else {
-      this.handleSpecialOperations()
-    }
-  },
-
-  handleOperations: function () {
-    if ( this.isEqualSign() ) {
-      return this.completeOperations()
-    } else if ( !this.queuedOperations() ) {
-      this.operations.push( this.value )
-      this.operands.push( this.display )
-      this.displayFlag = false
-      this.display = '0'
-    }
-  },
-
-  handleSpecialOperations: function () {
-    if ( this.checkForAllClear() ) {
-      return this.allClear()
-    }
-    if ( this.checkForDecimal() ) {
-      if ( !this.displayContainsDecimal() ) {
-        this.displayScreen()
-      }
-      return
-    }
-    if ( this.checkForSign() ) {
-      return this.changeSign()
-    }
-    if ( this.checkForPercentage() ) {
-      return this.computePercentage()
-    }
-  },
-
   // Boolean functions
 
-  checkForAllClear: function () {
-    return this.value === 'AC'
+  checkForAllClear: function ( input ) {
+    return input === 'AC'
   },
 
-  checkForDecimal: function () {
-    return this.value === '.'
+  checkForDecimal: function ( input ) {
+    return input === '.'
   },
 
-  checkForPercentage: function () {
-    return this.value === '%'
+  checkForPercentage: function ( input ) {
+    return input === '%'
   },
 
-  checkForSign: function () {
-    return this.value === 'sign'
+  checkForSign: function ( input ) {
+    return input === 'sign'
   },
 
-  checkForSignInDisplay: function () {
-    return this.display.includes( '-' )
+  checkForSignInDisplay: function ( display ) {
+    return display.includes( '-' )
   },
 
-  displayContainsDecimal: function () {
-    return this.display.includes( '.' )
+  displayContainsDecimal: function ( display ) {
+    return display.includes( '.' )
   },
 
-  isEqualSign: function () {
-    return this.value === '='
+  isEqualSign: function ( input ) {
+    return input === '='
   },
 
-  isNumber: function () {
-    return [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ].includes( parseInt( this.value ) )
+  isNumber: function ( input ) {
+    return /^\d+$/.test( input )
   },
 
-  isOperation: function () {
-    return [ '=', 'X', '/', '+', '-' ].includes( this.value )
+  isOperation: function ( input ) {
+    return [ '=', 'X', '/', '+', '-' ].includes( input )
   },
 
-  queuedOperations: function () {
-    return this.operations.length !== 0
+  queuedOperations: function ( operations ) {
+    return operations.length !== 0
   },
 
   // Look up table for functions
@@ -188,10 +189,10 @@ Calculator.prototype = {
     var secondValue = parseFloat( operandTwo )
     /* eslint-disable key-spacing */
     var functions = {
-      'X'        : this.multiply( firstValue, secondValue ),
-      '/'        : this.divide( firstValue, secondValue ),
-      '+'        : this.add( firstValue, secondValue ),
-      '-'        : this.subtract( firstValue, secondValue ),
+      'X'        : helperFunctions.multiply( firstValue, secondValue ),
+      '/'        : helperFunctions.divide( firstValue, secondValue ),
+      '+'        : helperFunctions.add( firstValue, secondValue ),
+      '-'        : helperFunctions.subtract( firstValue, secondValue ),
       'null'     : '0',
       'undefined': '0'
     }
@@ -203,8 +204,8 @@ Calculator.prototype = {
 var Calc = new Calculator() //eslint-disable-line
 var clickElement = document.querySelector( '.calculator-keypad' )
 
-clickElement.addEventListener( 'click', calculatorHandler.bind( this ) )
-document.addEventListener( 'keypress', calculatorHandler.bind( this ) )
+clickElement.addEventListener( 'click', calculatorHandler )
+document.addEventListener( 'keydown', calculatorHandler )
 
 function calculatorHandler ( event ) {
   var displayElement = document.querySelector( '.calculator-display' )
@@ -214,17 +215,26 @@ function calculatorHandler ( event ) {
     eventKey = parsedKey( event.key )
   }
 
-  var value = ( !event.key ) ? event.target.value : eventKey
+  var value = event.key ? eventKey : event.target.value
   var calculatorButton = document.querySelector( `[value='${eventKey}']` )
 
   if ( eventKey !== null && eventKey ) {
+    var originalBackground = window
+      .getComputedStyle( calculatorButton, null )
+        .getPropertyValue( 'backgroundColor' )
+    var originalOpacity = window
+      .getComputedStyle( calculatorButton, null )
+        .getPropertyValue( 'opacity' )
+    var originalColor = window
+      .getComputedStyle( calculatorButton, null )
+        .getPropertyValue( 'color' )
     calculatorButton.style.backgroundColor = 'black'
     calculatorButton.style.color = 'white'
     calculatorButton.style.opacity = '.7'
     setTimeout( function () {
-      calculatorButton.style.backgroundColor = '#e6e8ed'
-      calculatorButton.style.color = 'black'
-      calculatorButton.style.opacity = '1'
+      calculatorButton.style.backgroundColor = originalBackground
+      calculatorButton.style.color = originalColor
+      calculatorButton.style.opacity = originalOpacity
     }, 200 )
   }
 
