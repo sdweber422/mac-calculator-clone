@@ -134,14 +134,14 @@ In stage 2 you will be adding `JavaScript` to make the calculator work.
 ##### Specs
 
 - [X] Your `JavaScript` is written in `ES5`
-- [ ] Your `JavaScript` follows this [style guide](https://google.github.io/styleguide/jsguide.html)
+- [X] Your `JavaScript` follows this [style guide](https://google.github.io/styleguide/jsguide.html)
 - [X] Your JavaScript defines 1 or less global variables
 - [X] The Calculator display is not an `<input>`
 - [X] Typing a relevant key at any point is reflected on the calculator
-- [ ] Typing a relevant key causes the corresponding button on the calculator to appear to have been pressed. AKA flashes active
+- [X] Typing a relevant key causes the corresponding button on the calculator to appear to have been pressed. AKA flashes active
 - [X] The state of the calculator is not be stored in the `DOM`
-- [ ] The mathematical operations for your calculator are each their own function, and are defined outside of any DOM event handler
-- [ ] When the length of the number displayed exceeds the width available, the font-size deterministically drops
+- [X] The mathematical operations for your calculator are each their own function, and are defined outside of any DOM event handler
+- [X] When the length of the number displayed exceeds the width available, the font-size deterministically drops
 
 ### Stage 3
 
